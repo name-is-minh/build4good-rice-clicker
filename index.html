@@ -54,10 +54,20 @@
   </main>
 
   <div class="mt-4">
-    <input type="text" id="usernameInput" placeholder="Enter your username"
-      class="px-4 py-2 border border-gray-400 rounded-lg">
-    <button onclick="saveUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
-  </div>
+    <!-- Save Username Section -->
+    <div class="mb-2"> <!-- Adding bottom margin to separate Save and Load buttons -->
+      <input type="text" id="usernameInput" placeholder="Enter your username"
+        class="px-4 py-2 border border-gray-400 rounded-lg">
+      <button onclick="saveUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
+    </div>
+  
+    <!-- Load Username Section -->
+    <div>
+      <input type="text" id="loadUsernameInput" placeholder="Enter username to load" 
+        class="px-4 py-2 border border-gray-400 rounded-lg">
+      <button onclick="loadUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Load Username</button>
+    </div>
+  </div>  
   
   <!-- Store Section -->
   <section class="mt-16 bg-[#804000] text-white p-8">

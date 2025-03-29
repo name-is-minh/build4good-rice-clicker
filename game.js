@@ -35,7 +35,7 @@ function buyUpgrade(name) {
   const upgrade = upgrades[name];
   if (rice >= upgrade.cost) {
     rice -= upgrade.cost;
-    upgrade.owned++;  // Increase the level by 1
+    upgrade.owned++;  
     updateUI();
   }
 }
@@ -78,3 +78,32 @@ async function saveUsername() {
   const result = await response.json();
   alert(result.message);
 }
+
+async function loadUsername() {
+    const username = document.getElementById("loadUsernameInput").value;
+    
+    if (!username) {
+      alert("Please enter a username.");
+      return;
+    }
+  
+    const response = await fetch("http://localhost:3000/load-username", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username }),
+    });
+  
+    const result = await response.json();
+  
+    if (response.ok) {
+      rice = parseInt(result.currentRice);
+      upgrades.autoClicker.owned = parseInt(result.autoClickerLvl);
+      upgrades.farmer.owned = parseInt(result.farmerLvl);
+      upgrades.fertilizer.owned = parseInt(result.fertilizerLvl);
+      upgrades.mom.owned = parseInt(result.momLvl);
+  
+      updateUI();
+    } else {
+      alert(result.message);
+    }
+  }
