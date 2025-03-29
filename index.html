@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap"
     rel="stylesheet">
+
   <style>
     @keyframes tilt {
       0% {
@@ -47,7 +48,6 @@
         transform: translateY(100vh);
         opacity: 0;
       }
-
     }
 
     .animate-fall {
@@ -67,7 +67,6 @@
     .animate-spin-slow {
       animation: spin-slow 5s linear infinite;
       transform-origin: center;
-      /* Ensure it rotates around center */
       display: block;
     }
 
@@ -108,124 +107,96 @@
       }
     }
   </style>
-
 </head>
 
-<body
-  class="relative bg-[#F2E4CF] text-center min-h-screen flex flex-col justify-between overflow-x-hidden select-none">
+<body class="bg-[#F2E4CF] text-center min-h-screen overflow-x-hidden select-none">
   <!-- Header -->
   <header class="mt-10">
     <h1 class="text-5xl font-bold text-brand-pink flex justify-center items-center gap-3">
       🍚 Rice Clicker
+      <span id="usernameDisplay" class="text-2xl ml-4"></span>
     </h1>
     <div class="mt-4 text-xl bg-white rounded-full px-6 py-2 inline-block font-semibold">
       Bowls: <span id="riceCount">0</span>
     </div>
-    <div class="fixed top-5 right-4 w-64 bg-white border border-gray-300 rounded-lg p-4 shadow-lg">
-      <h3 class="text-lg font-bold text-gray-800 mb-2">🏆 Achievements</h3>
-      <div id="achievementBoard" class="text-left space-y-2">
-        <!-- Achievements will appear here -->
-      </div>
-    </div>
   </header>
 
-  <!-- Clickable Rice Bowl -->
-  <main
-    class="relative flex justify-center items-center group w-[400px] h-[400px] mx-auto mt-10 select-none  cursor-pointer"
-    onclick="handleRiceClick(event)">
-    <!-- Light ray image -->
-    <img src="img/light-ray-2.png" alt="Light Ray" class="absolute w-[400px] h-[400px]  rounded-full  opacity-0
-    group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
-    animate-spin-slow -left-5 top-4" />
-    <!-- Rice bowl image -->
+  <!-- Main Game Layout -->
+  <div class="flex flex-col lg:flex-row justify-between items-start gap-8 mt-10 px-10">
 
-    <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl"
-      class="relative z-10 w-[300px] h-[300px] rounded-full hover:scale-[1.05] duration-500 ease-in-out left-4 bottom-4 select-none"
-      draggable="false">
-  </main>
+    <!-- Store Section (Left) -->
+    <section class="w-full lg:w-1/4 bg-[#A96036] text-white p-6 rounded-lg">
+      <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">🏪 Stores</h2>
+      <div class="space-y-4">
+        <!-- Each Store Item -->
+        <div id="buyAutoClicker" onclick="buyUpgrade('autoClicker')"
+          class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full transition duration-300 cursor-pointer hover:shadow-lg hover:bg-[#a8d28a]">
+          <span>Auto Clicker</span>
+          <span class="ml-2 text-sm text-white/70" id="countAutoClicker">x0</span>
+          <span class="bg-white text-black px-4 py-1 rounded-full text-sm">20 bowls</span>
+        </div>
 
-  <div class="mt-4">
-    <!-- Save Username Section -->
-    <div class="mb-2"> <!-- Adding bottom margin to separate Save and Load buttons -->
-      <input type="text" id="usernameInput" placeholder="Enter your username"
-        class="px-4 py-2 border border-gray-400 rounded-lg">
-      <button onclick="saveUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
-    </div>
-  
-    <!-- Load Username Section -->
-    <div>
-      <input type="text" id="loadUsernameInput" placeholder="Enter username to load" 
-        class="px-4 py-2 border border-gray-400 rounded-lg">
-      <button onclick="loadUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Load Username</button>
-    </div>
-  </div>  
-  
-  <!-- Store Section -->
-  <section class="mt-16 bg-[#A96036] text-white p-8">
-    <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
-      🏪 Stores
-    </h2>
-  
-    <!-- Store Items -->
-    <div class="space-y-4">
-      <div id="buyAutoClicker" onclick="buyUpgrade('autoClicker')" class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full 
-      transition-all duration-500 ease-in-out cursor-pointer 
-        hover:shadow-lg hover:bg-[#a8d28a] ">
-        <span>Auto Clicker</span>
-        <span class="ml-2 text-sm text-white/70" id="countAutoClicker">x0</span>
-        <span class="bg-white text-black px-4 py-1 rounded-full text-sm">
-          20 bowls
-        </span>
-        <!-- Tooltip -->
-        <div
-          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-          +1 rice per second<br />
-          Grows faster rice with automated care.
+        <div id="buyFarmer" onclick="buyUpgrade('farmer')"
+          class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full transition duration-300 cursor-pointer hover:shadow-lg hover:bg-[#a8d28a]">
+          <span>Farmer</span>
+          <span class="ml-2 text-sm text-white/70" id="countFarmer">x0</span>
+          <span class="bg-white text-black px-4 py-1 rounded-full text-sm">30 bowls</span>
+        </div>
+
+        <div id="buyFertilizer" onclick="buyUpgrade('fertilizer')"
+          class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full transition duration-300 cursor-pointer hover:shadow-lg hover:bg-[#a8d28a]">
+          <span>Fertilizer</span>
+          <span class="ml-2 text-sm text-white/70" id="countFertilizer">x0</span>
+          <span class="bg-white text-black px-4 py-1 rounded-full text-sm">40 bowls</span>
+        </div>
+
+        <div id="buyMom" onclick="buyUpgrade('mom')"
+          class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full transition duration-300 cursor-pointer hover:shadow-lg hover:bg-[#a8d28a]">
+          <span>Mom</span>
+          <span class="ml-2 text-sm text-white/70" id="countMom">x0</span>
+          <span class="bg-white text-black px-4 py-1 rounded-full text-sm">50 bowls</span>
         </div>
       </div>
-      <div id="buyFarmer" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full
-      transition-all duration-500 ease-in-out cursor-pointer 
-      hover:shadow-lg hover:bg-[#a8d28a]" onclick="buyUpgrade('farmer')">
-        <span>Farmer</span>
-        <span class="ml-2 text-sm text-white/70" id="countFarmer">x0</span>
-        <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
-          30 bowls
-        </button>
-        <div
-          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-          +2 rice per second<br />
-          A skilled farmer who helps grow more rice steadily.
-        </div>
+    </section>
+
+    <!-- Clickable Rice Bowl -->
+    <main
+      class="relative flex justify-center items-center group w-[400px] h-[400px] mx-auto mt-10 select-none  cursor-pointer"
+      onclick="handleRiceClick(event)">
+      <img src="img/light-ray-2.png" alt="Light Ray"
+        class="absolute w-[400px] h-[400px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none animate-spin-slow -left-6 top-3" />
+      <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl"
+        class="relative z-10 w-[300px] h-[300px] rounded-full hover:scale-[1.05] duration-500 ease-in-out select-none left-4 bottom-4"
+        draggable="false">
+    </main>
+
+    <!-- Achievements + Username Inputs (Right) -->
+    <aside class="w-full lg:w-1/4 bg-white border border-gray-300 rounded-lg p-6 shadow-lg text-left">
+      <h3 class="text-lg font-bold text-gray-800 mb-2">🏆 Achievements</h3>
+      <div id="achievementBoard" class="space-y-2 mb-4">
+        <!-- Achievements will appear here -->
       </div>
-      <div id="buyFertilizer" onclick="buyUpgrade('fertilizer')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
-        transition-all duration-500 ease-in-out cursor-pointer ">
-        <span>Fertilizer</span>
-        <span class="ml-2 text-sm text-white/70" id="countFertilizer">x0</span>
-        <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
-          40 bowls
-        </button>
-        <div
-          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-          +3 rice per second<br />
-          Boosts rice yield by enriching the soil.
-        </div>
+
+      <hr class="my-4">
+
+      <!-- Save Username -->
+      <div class="mb-3">
+        <input type="text" id="usernameInput" placeholder="Enter your username"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg mb-2">
+        <button onclick="saveUsername()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
       </div>
-      <div id="buyMom" onclick="buyUpgrade('mom')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
-        transition-all duration-500 ease-in-out cursor-pointer ">
-        <span>Mom</span>
-        <span class="ml-2 text-sm text-white/70" id="countMom">x0</span>
-        <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
-          50 bowls
-        </button>
-        <div
-          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-          +5 rice per second<br />
-          Mom’s love and care supercharge your rice gains!
-        </div>
+
+      <!-- Load Username -->
+      <div>
+        <input type="text" id="loadUsernameInput" placeholder="Enter username to load"
+          class="w-full px-4 py-2 border border-gray-400 rounded-lg mb-2">
+        <button onclick="loadUsername()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg">Load
+          Username</button>
       </div>
-    </div>
-  </section>
-  
+    </aside>
+
+  </div>
+
   <script src="game.js"></script>
 </body>
 

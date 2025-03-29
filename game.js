@@ -40,7 +40,7 @@ const achievements = [
     id: "fertilizerFiesta",
     title: "Fertilizer Fiesta",
     description: "Own 15 fertilizers 🌿",
-    condition: () => upgrades.fertilizer.owned >= 15, 
+    condition: () => upgrades.fertilizer.owned >= 15,
     unlocked: false
   }
 ];
@@ -65,9 +65,8 @@ function updateAchievementBoard() {
 
   for (let a of achievements) {
     const div = document.createElement("div");
-    div.className = `border p-2 rounded mb-2 transition-all duration-300 ${
-      a.unlocked ? "bg-green-200 border-green-600" : "bg-gray-200 text-gray-500 border-gray-400"
-    }`;
+    div.className = `border p-2 rounded mb-2 transition-all duration-300 ${a.unlocked ? "bg-green-200 border-green-600" : "bg-gray-200 text-gray-500 border-gray-400"
+      }`;
     div.innerHTML = `
       <h4 class="font-bold">${a.title}</h4>
       <p class="text-sm">${a.description}</p>
@@ -115,18 +114,18 @@ function increaseRice() {
   updateUI();
 }
 
-function handleRiceClick(event){
+function handleRiceClick(event) {
   increaseRice();
   tiltImage();
   createRiceSplash(event);
 }
-function tiltImage(){
+function tiltImage() {
   const bowl = document.getElementById("riceBowl");
   bowl.classList.remove("animate-tilt");
   void bowl.offsetWidth; // trigger reflow
   bowl.classList.add("animate-tilt");
 }
-function createRiceSplash(event){
+function createRiceSplash(event) {
   const splash = document.createElement('img');
   splash.src = 'img/rice_splash_2.png'; // Change to your actual image path
   splash.className = 'rice-splash rounded-full';
@@ -147,47 +146,47 @@ function createRiceSplash(event){
 }
 
 const emojiRaining = {
-    farmer: false,
-    fertilizer: false,
-    mom: false
-  };
-  
-  function createEmojiRain(emoji) {
-    const emojiElem = document.createElement("div");
-    emojiElem.innerText = emoji;
-    emojiElem.className = "emoji absolute text-2xl pointer-events-none animate-fall";
-    emojiElem.style.left = Math.random() * 95 + "vw";
-    emojiElem.style.top = "-2rem";
-    document.body.appendChild(emojiElem);
-  
-    // Remove after it falls
-    setTimeout(() => {
-      emojiElem.remove();
-    }, 3000);
+  farmer: false,
+  fertilizer: false,
+  mom: false
+};
+
+function createEmojiRain(emoji) {
+  const emojiElem = document.createElement("div");
+  emojiElem.innerText = emoji;
+  emojiElem.className = "emoji absolute text-2xl pointer-events-none animate-fall";
+  emojiElem.style.left = Math.random() * 95 + "vw";
+  emojiElem.style.top = "-2rem";
+  document.body.appendChild(emojiElem);
+
+  // Remove after it falls
+  setTimeout(() => {
+    emojiElem.remove();
+  }, 3000);
+}
+
+function startEmojiRain(upgradeName, emoji) {
+  if (emojiRaining[upgradeName]) return;
+  emojiRaining[upgradeName] = true;
+
+  setInterval(() => {
+    createEmojiRain(emoji);
+  }, 500); // drops every 500ms
+}
+
+function buyUpgrade(name) {
+  const upgrade = upgrades[name];
+  if (rice >= upgrade.cost) {
+    rice -= upgrade.cost;
+    upgrade.owned++;
+    updateUI();
+
+    if (name == "autoClicker") startEmojiRain("autoClicker", "🖱️");
+    if (name === "farmer") startEmojiRain("farmer", "🧑‍🌾");
+    if (name === "fertilizer") startEmojiRain("fertilizer", "🌱");
+    if (name === "mom") startEmojiRain("mom", "👩");
   }
-  
-  function startEmojiRain(upgradeName, emoji) {
-    if (emojiRaining[upgradeName]) return;
-    emojiRaining[upgradeName] = true;
-  
-    setInterval(() => {
-      createEmojiRain(emoji);
-    }, 500); // drops every 500ms
-  }
-  
-  function buyUpgrade(name) {
-    const upgrade = upgrades[name];
-    if (rice >= upgrade.cost) {
-        rice -= upgrade.cost;
-        upgrade.owned++;
-        updateUI();
-        
-        if (name == "autoClicker") startEmojiRain("autoClicker", "🖱️");
-        if (name === "farmer") startEmojiRain("farmer", "🧑‍🌾");
-        if (name === "fertilizer") startEmojiRain("fertilizer", "🌱");
-        if (name === "mom") startEmojiRain("mom", "👩");
-    }
-  }  
+}
 
 updateAchievementBoard();  // Initial display
 
@@ -231,30 +230,30 @@ async function saveUsername() {
 }
 
 async function loadUsername() {
-    const username = document.getElementById("loadUsernameInput").value;
-    
-    if (!username) {
-      alert("Please enter a username.");
-      return;
-    }
-  
-    const response = await fetch("http://localhost:3000/load-username", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username }),
-    });
-  
-    const result = await response.json();
-  
-    if (response.ok) {
-      rice = parseInt(result.currentRice);
-      upgrades.autoClicker.owned = parseInt(result.autoClickerLvl);
-      upgrades.farmer.owned = parseInt(result.farmerLvl);
-      upgrades.fertilizer.owned = parseInt(result.fertilizerLvl);
-      upgrades.mom.owned = parseInt(result.momLvl);
-  
-      updateUI();
-    } else {
-      alert(result.message);
-    }
+  const username = document.getElementById("loadUsernameInput").value;
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
   }
+
+  const response = await fetch("http://localhost:3000/load-username", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username }),
+  });
+
+  const result = await response.json();
+
+  if (response.ok) {
+    rice = parseInt(result.currentRice);
+    upgrades.autoClicker.owned = parseInt(result.autoClickerLvl);
+    upgrades.farmer.owned = parseInt(result.farmerLvl);
+    upgrades.fertilizer.owned = parseInt(result.fertilizerLvl);
+    upgrades.mom.owned = parseInt(result.momLvl);
+
+    updateUI();
+  } else {
+    alert(result.message);
+  }
+}
