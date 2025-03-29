@@ -257,3 +257,36 @@ async function loadUsername() {
     alert(result.message);
   }
 }
+
+const riceNews = [
+  "🍚 Your rice is talked about across continents.",
+  "📰 News: Mom starts underground rice casino.",
+  "📦 Breaking: Global rice shortage is caused by you.",
+  "🌾 Farmer #42 grew a rice stalk taller than your house.",
+  "👩 Mom called. She’s proud of your rice empire.",
+  "📡 Rice satellites now orbiting Earth.",
+  "💬 Rice whisperers discovered in ancient scrolls.",
+  "🔬 Scientists confirm: rice increases happiness.",
+  "📈 Rice stock reaches all-time high. Again.",
+  "🎤 Quote of the day: 'Click rice. Feel nice.'"
+];
+
+function createFallingQuote() {
+  const quote = document.createElement("div");
+  quote.className = "rice-quote";
+  quote.innerText = riceNews[Math.floor(Math.random() * riceNews.length)];
+  quote.style.left = Math.random() * 80 + "vw"; // position it randomly on the screen
+  quote.style.top = "-2rem";
+
+  document.body.appendChild(quote);
+
+  setTimeout(() => {
+    quote.remove();
+  }, 6000); // duration must match the animation time in CSS
+}
+
+setInterval(() => {
+  createFallingQuote();
+}, 7000); // every 7 seconds
+
+createFallingQuote();
