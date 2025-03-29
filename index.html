@@ -53,12 +53,18 @@
       onclick>
   </main>
 
+  <div class="mt-4">
+    <input type="text" id="usernameInput" placeholder="Enter your username"
+      class="px-4 py-2 border border-gray-400 rounded-lg">
+    <button onclick="saveUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
+  </div>
+  
   <!-- Store Section -->
   <section class="mt-16 bg-[#804000] text-white p-8">
     <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
       🏪 Stores
     </h2>
-
+  
     <!-- Store Items -->
     <div class="space-y-4">
       <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
@@ -66,28 +72,32 @@
         <button onclick="buyUpgrade('autoClicker')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           20 bowls
         </button>
+        <span id="autoClickerLvl" class="text-yellow-500 ml-2">0</span> <!-- Display level -->
       </div>
       <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
         <span>Farmer</span>
         <button onclick="buyUpgrade('farmer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           30 bowls
         </button>
+        <span id="farmerLvl" class="text-yellow-500 ml-2">0</span> <!-- Display level -->
       </div>
       <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
         <span>Fertilizer</span>
         <button onclick="buyUpgrade('fertilizer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           40 bowls
         </button>
+        <span id="fertilizerLvl" class="text-yellow-500 ml-2">0</span> <!-- Display level -->
       </div>
       <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
         <span>Mom</span>
         <button onclick="buyUpgrade('mom')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           50 bowls
         </button>
+        <span id="momLvl" class="text-yellow-500 ml-2">0</span> <!-- Display level -->
       </div>
     </div>
   </section>
-
+  
   <script src="game.js"></script>
 </body>
 

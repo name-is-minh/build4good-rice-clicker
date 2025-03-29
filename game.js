@@ -8,7 +8,14 @@ const upgrades = {
 };
 
 function updateUI() {
+  // Update the rice count in the UI
   document.getElementById("riceCount").innerText = rice;
+
+  // Update the level of upgrades in the UI
+  document.getElementById("autoClickerLvl").innerText = upgrades.autoClicker.owned;
+  document.getElementById("farmerLvl").innerText = upgrades.farmer.owned;
+  document.getElementById("fertilizerLvl").innerText = upgrades.fertilizer.owned;
+  document.getElementById("momLvl").innerText = upgrades.mom.owned;
 }
 
 function increaseRice() {
@@ -16,7 +23,7 @@ function increaseRice() {
   updateUI();
 }
 
-function handleRiceClick(){
+function handleRiceClick() {
   increaseRice();
   const bowl = document.getElementById("riceBowl");
   bowl.classList.remove("animate-tilt");
@@ -28,7 +35,7 @@ function buyUpgrade(name) {
   const upgrade = upgrades[name];
   if (rice >= upgrade.cost) {
     rice -= upgrade.cost;
-    upgrade.owned++;
+    upgrade.owned++;  // Increase the level by 1
     updateUI();
   }
 }
@@ -40,3 +47,34 @@ setInterval(() => {
   }
   updateUI();
 }, 1000);
+
+async function saveUsername() {
+  const username = document.getElementById("usernameInput").value;
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
+  }
+
+  const currentRice = rice;
+  const farmerLvl = upgrades.farmer.owned;
+  const fertilizerLvl = upgrades.fertilizer.owned;
+  const momLvl = upgrades.mom.owned;
+  const autoClickerLvl = upgrades.autoClicker.owned;
+
+  const response = await fetch("http://localhost:3000/save-username", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username,
+      currentRice,
+      farmerLvl,
+      fertilizerLvl,
+      momLvl,
+      autoClickerLvl,
+    }),
+  });
+
+  const result = await response.json();
+  alert(result.message);
+}
