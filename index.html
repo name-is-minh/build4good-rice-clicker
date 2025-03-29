@@ -111,7 +111,8 @@
 
 </head>
 
-<body class="relative bg-[#F2E4CF] text-center min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body
+  class="relative bg-[#F2E4CF] text-center min-h-screen flex flex-col justify-between overflow-x-hidden select-none">
   <!-- Header -->
   <header class="mt-10">
     <h1 class="text-5xl font-bold text-brand-pink flex justify-center items-center gap-3">
@@ -123,7 +124,8 @@
   </header>
 
   <!-- Clickable Rice Bowl -->
-  <main class="relative flex justify-center items-center group w-[400px] h-[400px] mx-auto mt-10 select-none"
+  <main
+    class="relative flex justify-center items-center group w-[400px] h-[400px] mx-auto mt-10 select-none  cursor-pointer"
     onclick="handleRiceClick(event)">
     <!-- Light ray image -->
     <img src="img/light-ray-2.png" alt="Light Ray" class="absolute w-[400px] h-[400px]  rounded-full  opacity-0
@@ -132,7 +134,7 @@
     <!-- Rice bowl image -->
 
     <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl"
-      class="relative z-10 w-[300px] h-[300px] cursor-pointer rounded-full hover:scale-[1.05] duration-500 ease-in-out left-4 bottom-4 select-none"
+      class="relative z-10 w-[300px] h-[300px] rounded-full hover:scale-[1.05] duration-500 ease-in-out left-4 bottom-4 select-none"
       draggable="false">
   </main>
 
