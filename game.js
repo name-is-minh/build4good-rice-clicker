@@ -54,6 +54,18 @@ function checkAchievements() {
     }
   }
 }
+function toggleProfileModal() {
+  const modal = document.getElementById("profileModal");
+
+  if (modal.classList.contains("opacity-0")) {
+    modal.classList.remove("opacity-0", "pointer-events-none", "scale-95");
+    modal.classList.add("opacity-100", "pointer-events-auto", "scale-100");
+  } else {
+    modal.classList.remove("opacity-100", "pointer-events-auto", "scale-100");
+    modal.classList.add("opacity-0", "pointer-events-none", "scale-95");
+  }
+}
+
 
 function showAchievement(achievement) {
   console.log(`Achievement unlocked: ${achievement.title}`);
