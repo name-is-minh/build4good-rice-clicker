@@ -16,6 +16,14 @@ function increaseRice() {
   updateUI();
 }
 
+function handleRiceClick(){
+  increaseRice();
+  const bowl = document.getElementById("riceBowl");
+  bowl.classList.remove("animate-tilt");
+  void bowl.offsetWidth; // trigger reflow
+  bowl.classList.add("animate-tilt");
+}
+
 function buyUpgrade(name) {
   const upgrade = upgrades[name];
   if (rice >= upgrade.cost) {

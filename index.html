@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rice Clicker</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes tilt {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(10deg);
+      }
+
+      50% {
+        transform: rotate(-10deg);
+      }
+
+      75% {
+        transform: rotate(10deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    .animate-tilt {
+      animation: tilt 0.3s ease;
+    }
+  </style>
+
 </head>
+
 <body class="bg-[#d2b48c] text-center min-h-screen flex flex-col justify-between">
   <!-- Header -->
   <header class="mt-10">
@@ -19,7 +49,8 @@
 
   <!-- Clickable Rice Bowl -->
   <main class="flex justify-center mt-10">
-    <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl" class="w-40 h-40 cursor-pointer" onclick="increaseRice()">
+    <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl" class="w-40 h-40 cursor-pointer" onclick="handleRiceClick()"
+      onclick>
   </main>
 
   <!-- Store Section -->
@@ -27,7 +58,7 @@
     <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
       🏪 Stores
     </h2>
-    
+
     <!-- Store Items -->
     <div class="space-y-4">
       <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
@@ -59,4 +90,5 @@
 
   <script src="game.js"></script>
 </body>
+
 </html>
