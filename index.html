@@ -6,35 +6,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rice Clicker</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Winky+Sans:ital,wght@0,300..900;1,300..900&display=swap"
+    rel="stylesheet">
   <style>
     @keyframes tilt {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(10deg); }
-        50% { transform: rotate(-10deg); }
-        75% { transform: rotate(10deg); }
-        100% { transform: rotate(0deg); }
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(10deg);
+      }
+
+      50% {
+        transform: rotate(-10deg);
+      }
+
+      75% {
+        transform: rotate(10deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
     }
 
     .animate-tilt {
-        animation: tilt 0.3s ease;
+      animation: tilt 0.3s ease;
     }
 
     @keyframes fall {
-        0% { transform: translateY(0); opacity: 1; }
-        100% { transform: translateY(100vh); opacity: 0; }
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
     }
 
     .animate-fall {
-        animation: fall 3s linear forwards;
+      animation: fall 3s linear forwards;
+    }
+
+    @layer base {
+      body {
+        font-family: "Winky Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+      }
+    }
+
+    @layer utilities {
+      .text-brand-pink {
+        color: #C85250;
+      }
+
+      .section-background {
+        background-color: #76B947;
+        color: white;
+        font-weight: bold;
+      }
     }
   </style>
 
 </head>
 
-<body class="relative bg-[#d2b48c] text-center min-h-screen flex flex-col justify-between overflow-x-hidden">
+<body class="relative bg-[#F2E4CF] text-center min-h-screen flex flex-col justify-between overflow-x-hidden">
   <!-- Header -->
   <header class="mt-10">
-    <h1 class="text-5xl font-bold text-red-600 flex justify-center items-center gap-3">
+    <h1 class="text-5xl font-bold text-brand-pink flex justify-center items-center gap-3">
       🍚 Rice Clicker
     </h1>
     <div class="mt-4 text-xl bg-white rounded-full px-6 py-2 inline-block font-semibold">
@@ -49,32 +95,32 @@
   </main>
 
   <!-- Store Section -->
-  <section class="mt-16 bg-[#804000] text-white p-8">
+  <section class="mt-16 bg-[#A96036] text-white p-8">
     <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
       🏪 Stores
     </h2>
 
     <!-- Store Items -->
     <div class="space-y-4">
-      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+      <div class="flex justify-between items-center section-background px-6 py-3 rounded-full">
         <span>Auto Clicker</span>
         <button onclick="buyUpgrade('autoClicker')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           20 bowls
         </button>
       </div>
-      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+      <div class="flex justify-between items-center  section-background px-6 py-3 rounded-full">
         <span>Farmer</span>
         <button onclick="buyUpgrade('farmer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           30 bowls
         </button>
       </div>
-      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+      <div class="flex justify-between items-center  section-background px-6 py-3 rounded-full">
         <span>Fertilizer</span>
         <button onclick="buyUpgrade('fertilizer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           40 bowls
         </button>
       </div>
-      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+      <div class="flex justify-between items-center  section-background px-6 py-3 rounded-full">
         <span>Mom</span>
         <button onclick="buyUpgrade('mom')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
           50 bowls

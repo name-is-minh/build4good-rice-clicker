@@ -18,6 +18,10 @@ function increaseRice() {
 
 function handleRiceClick(){
   increaseRice();
+  tiltImage();
+  
+}
+function tiltImage(){
   const bowl = document.getElementById("riceBowl");
   bowl.classList.remove("animate-tilt");
   void bowl.offsetWidth; // trigger reflow
