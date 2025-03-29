@@ -8,10 +8,8 @@ const app = express();
 
 const corsOptions = {
   origin: 'https://name-is-minh.github.io',
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-  credentials: false
-
+  methods: ['POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
 };
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
