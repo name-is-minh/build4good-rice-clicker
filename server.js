@@ -7,7 +7,7 @@ const { Client } = require('@notionhq/client');
 const app = express();
 
 const corsOptions = {
-  origin: ['https://name-is-minh.github.io', 'https://rice-clicker-backend.onrender.com'],
+  origin: ['https://name-is-minh.github.io', 'http://localhost:10000'],
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
