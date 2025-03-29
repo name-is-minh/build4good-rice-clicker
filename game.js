@@ -21,7 +21,14 @@ function updateUI() {
       } else {
         div.classList.add("opacity-50", "cursor-not-allowed");
         div.classList.remove("cursor-pointer");
-        div.onclick = null;}
+        div.onclick = null;
+      }
+    }
+
+    // Update upgrade count display
+    const countSpan = document.getElementById(`count${capitalizeFirstLetter(key)}`);
+    if (countSpan) {
+      countSpan.innerText = `x${upgrade.owned}`;
     }
   }
 }
