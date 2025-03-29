@@ -7,6 +7,75 @@ const upgrades = {
   mom: { cost: 50, rate: 5, owned: 0 }
 };
 
+const achievements = [
+  {
+    id: "momMaster",
+    title: "Mama Army",
+    description: "Have 10 moms 👩",
+    condition: () => upgrades.mom.owned >= 10,
+    unlocked: false
+  },
+  {
+    id: "farmForce",
+    title: "Farmer Frenzy",
+    description: "Make 20 farmers work 🧑‍🌾",
+    condition: () => upgrades.farmer.owned >= 20,
+    unlocked: false
+  },
+  {
+    id: "clickKing",
+    title: "Click Commander",
+    description: "Own 30 auto clickers 🖱️",
+    condition: () => upgrades.autoClicker.owned >= 30,
+    unlocked: false
+  },
+  {
+    id: "casualCook",
+    title: "Casual Cooking",
+    description: "Cooked 100 bowls 🍚",
+    condition: () => rice >= 100,
+    unlocked: false
+  },
+  {
+    id: "fertilizerFiesta",
+    title: "Fertilizer Fiesta",
+    description: "Own 15 fertilizers 🌿",
+    condition: () => upgrades.fertilizer.owned >= 15, 
+    unlocked: false
+  }
+];
+
+function checkAchievements() {
+  for (let achievement of achievements) {
+    if (!achievement.unlocked && achievement.condition()) {
+      achievement.unlocked = true;
+      showAchievement(achievement);
+      updateAchievementBoard();
+    }
+  }
+}
+
+function showAchievement(achievement) {
+  console.log(`Achievement unlocked: ${achievement.title}`);
+}
+
+function updateAchievementBoard() {
+  const container = document.getElementById("achievementBoard");
+  container.innerHTML = ""; // Clear before repopulating
+
+  for (let a of achievements) {
+    const div = document.createElement("div");
+    div.className = `border p-2 rounded mb-2 transition-all duration-300 ${
+      a.unlocked ? "bg-green-200 border-green-600" : "bg-gray-200 text-gray-500 border-gray-400"
+    }`;
+    div.innerHTML = `
+      <h4 class="font-bold">${a.title}</h4>
+      <p class="text-sm">${a.description}</p>
+    `;
+    container.appendChild(div);
+  }
+}
+
 function updateUI() {
   // Update the rice count in the UI
   document.getElementById("riceCount").innerText = rice;
@@ -16,6 +85,35 @@ function updateUI() {
   document.getElementById("farmerLvl").innerText = upgrades.farmer.owned;
   document.getElementById("fertilizerLvl").innerText = upgrades.fertilizer.owned;
   document.getElementById("momLvl").innerText = upgrades.mom.owned;
+
+  // Loop through each upgrade and toggle the button
+  for (let key in upgrades) {
+    const upgrade = upgrades[key];
+    const div = document.getElementById(`buy${capitalizeFirstLetter(key)}`);
+    if (div) {
+      if (rice >= upgrade.cost) {
+        div.classList.remove("opacity-50", "cursor-not-allowed");
+        div.classList.add("cursor-pointer");
+        div.onclick = () => buyUpgrade(key);
+      } else {
+        div.classList.add("opacity-50", "cursor-not-allowed");
+        div.classList.remove("cursor-pointer");
+        div.onclick = null;
+      }
+    }
+
+    // Update upgrade count display
+    const countSpan = document.getElementById(`count${capitalizeFirstLetter(key)}`);
+    if (countSpan) {
+      countSpan.innerText = `x${upgrade.owned}`;
+    }
+  }
+  checkAchievements();
+}
+
+// Helper to capitalize first letter
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function increaseRice() {
@@ -25,20 +123,60 @@ function increaseRice() {
 
 function handleRiceClick() {
   increaseRice();
+  tiltImage();
+  
+}
+function tiltImage(){
   const bowl = document.getElementById("riceBowl");
   bowl.classList.remove("animate-tilt");
   void bowl.offsetWidth; // trigger reflow
   bowl.classList.add("animate-tilt");
 }
 
-function buyUpgrade(name) {
-  const upgrade = upgrades[name];
-  if (rice >= upgrade.cost) {
-    rice -= upgrade.cost;
-    upgrade.owned++;  
-    updateUI();
+const emojiRaining = {
+    farmer: false,
+    fertilizer: false,
+    mom: false
+  };
+  
+  function createEmojiRain(emoji) {
+    const emojiElem = document.createElement("div");
+    emojiElem.innerText = emoji;
+    emojiElem.className = "emoji absolute text-2xl pointer-events-none animate-fall";
+    emojiElem.style.left = Math.random() * 95 + "vw";
+    emojiElem.style.top = "-2rem";
+    document.body.appendChild(emojiElem);
+  
+    // Remove after it falls
+    setTimeout(() => {
+      emojiElem.remove();
+    }, 3000);
   }
-}
+  
+  function startEmojiRain(upgradeName, emoji) {
+    if (emojiRaining[upgradeName]) return;
+    emojiRaining[upgradeName] = true;
+  
+    setInterval(() => {
+      createEmojiRain(emoji);
+    }, 500); // drops every 500ms
+  }
+  
+  function buyUpgrade(name) {
+    const upgrade = upgrades[name];
+    if (rice >= upgrade.cost) {
+        rice -= upgrade.cost;
+        upgrade.owned++;
+        updateUI();
+        
+        if (name == "autoClicker") startEmojiRain("autoClicker", "🖱️");
+        if (name === "farmer") startEmojiRain("farmer", "🧑‍🌾");
+        if (name === "fertilizer") startEmojiRain("fertilizer", "🌱");
+        if (name === "mom") startEmojiRain("mom", "👩");
+    }
+  }  
+
+updateAchievementBoard();  // Initial display
 
 // Passive income from all upgrades
 setInterval(() => {
