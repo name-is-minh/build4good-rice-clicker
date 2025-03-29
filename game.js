@@ -7,6 +7,75 @@ const upgrades = {
   mom: { cost: 50, rate: 5, owned: 0 }
 };
 
+const achievements = [
+  {
+    id: "momMaster",
+    title: "Mama Army",
+    description: "Have 10 moms 👩",
+    condition: () => upgrades.mom.owned >= 10,
+    unlocked: false
+  },
+  {
+    id: "farmForce",
+    title: "Farmer Frenzy",
+    description: "Make 20 farmers work 🧑‍🌾",
+    condition: () => upgrades.farmer.owned >= 20,
+    unlocked: false
+  },
+  {
+    id: "clickKing",
+    title: "Click Commander",
+    description: "Own 30 auto clickers 🖱️",
+    condition: () => upgrades.autoClicker.owned >= 30,
+    unlocked: false
+  },
+  {
+    id: "casualCook",
+    title: "Casual Cooking",
+    description: "Cooked 100 bowls 🍚",
+    condition: () => rice >= 100,
+    unlocked: false
+  },
+  {
+    id: "fertilizerFiesta",
+    title: "Fertilizer Fiesta",
+    description: "Own 15 fertilizers 🌿",
+    condition: () => upgrades.fertilizer.owned >= 15, 
+    unlocked: false
+  }
+];
+
+function checkAchievements() {
+  for (let achievement of achievements) {
+    if (!achievement.unlocked && achievement.condition()) {
+      achievement.unlocked = true;
+      showAchievement(achievement);
+      updateAchievementBoard();
+    }
+  }
+}
+
+function showAchievement(achievement) {
+  console.log(`Achievement unlocked: ${achievement.title}`);
+}
+
+function updateAchievementBoard() {
+  const container = document.getElementById("achievementBoard");
+  container.innerHTML = ""; // Clear before repopulating
+
+  for (let a of achievements) {
+    const div = document.createElement("div");
+    div.className = `border p-2 rounded mb-2 transition-all duration-300 ${
+      a.unlocked ? "bg-green-200 border-green-600" : "bg-gray-200 text-gray-500 border-gray-400"
+    }`;
+    div.innerHTML = `
+      <h4 class="font-bold">${a.title}</h4>
+      <p class="text-sm">${a.description}</p>
+    `;
+    container.appendChild(div);
+  }
+}
+
 function updateUI() {
   document.getElementById("riceCount").innerText = rice;
   // Loop through each upgrade and toggle the button
@@ -31,6 +100,7 @@ function updateUI() {
       countSpan.innerText = `x${upgrade.owned}`;
     }
   }
+  checkAchievements();
 }
 
 // Helper to capitalize first letter
@@ -97,6 +167,8 @@ const emojiRaining = {
         if (name === "mom") startEmojiRain("mom", "👩");
     }
   }  
+
+updateAchievementBoard();  // Initial display
 
 // Passive income from all upgrades
 setInterval(() => {
