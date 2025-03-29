@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Clicker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <h1 class="text-3xl font-bold mb-4">🍚 Rice Clicker</h1>
+    <img id="riceBowl" src="rice-bowl.png" alt="Rice Bowl" class="w-40 h-40 cursor-pointer" onclick="increaseRice()">
+    <p id="riceCount" class="text-xl mt-2">Rice: 0</p>
+    
+    <!-- Footer with upgrades -->
+    <footer class="fixed bottom-0 w-full p-4 bg-white shadow-md flex justify-center">
+        <div class="p-4 flex items-center gap-4">
+            <button id="buyAutoClicker" class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onclick="buyAutoClicker()" disabled>
+                🛒 Buy Auto Clicker (10 Rice)
+            </button>
+            <span id="autoClickers">Auto Clickers: 0</span>
+        </div>
+    </footer>
+    
+    <script src="game.js"></script>
+</body>
+</html>
