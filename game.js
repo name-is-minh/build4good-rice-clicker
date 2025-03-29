@@ -9,6 +9,26 @@ const upgrades = {
 
 function updateUI() {
   document.getElementById("riceCount").innerText = rice;
+  // Loop through each upgrade and toggle the button
+  for (let key in upgrades) {
+    const upgrade = upgrades[key];
+    const div = document.getElementById(`buy${capitalizeFirstLetter(key)}`);
+    if (div) {
+      if (rice >= upgrade.cost) {
+        div.classList.remove("opacity-50", "cursor-not-allowed");
+        div.classList.add("cursor-pointer");
+        div.onclick = () => buyUpgrade(key);
+      } else {
+        div.classList.add("opacity-50", "cursor-not-allowed");
+        div.classList.remove("cursor-pointer");
+        div.onclick = null;}
+    }
+  }
+}
+
+// Helper to capitalize first letter
+function capitalizeFirstLetter(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 function increaseRice() {
