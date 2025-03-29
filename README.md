@@ -46,4 +46,9 @@ node server.js
 ### 5. Open the Game
 Open index.html in your browser (you can use Live Server or a local static server).
 
+## Screenshots
+
+![Main Layout](screenshots/Rice_Clicker_Achievement.png)
+![Load Layout](screenshots/Load_Profile.png)
+![Database](screenshots/Notion_Database.png)
 
