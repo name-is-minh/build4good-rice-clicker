@@ -36,16 +36,35 @@ function increaseRice() {
   updateUI();
 }
 
-function handleRiceClick(){
+function handleRiceClick(event){
   increaseRice();
   tiltImage();
-  
+  createRiceSplash(event);
 }
 function tiltImage(){
   const bowl = document.getElementById("riceBowl");
   bowl.classList.remove("animate-tilt");
   void bowl.offsetWidth; // trigger reflow
   bowl.classList.add("animate-tilt");
+}
+function createRiceSplash(event){
+  const splash = document.createElement('img');
+  splash.src = 'img/rice_splash_2.png'; // Change to your actual image path
+  splash.className = 'rice-splash rounded-full';
+  splash.style.position = 'absolute';
+  splash.style.left = `${event.clientX - 20}px`;
+  splash.style.top = `${event.clientY - 20}px`;
+  splash.style.width = '40px';
+  splash.style.height = '40px';
+  splash.style.pointerEvents = 'none';
+  splash.style.animation = 'splash 0.6s ease-out forwards';
+  splash.style.zIndex = 100;
+
+  document.body.appendChild(splash);
+
+  setTimeout(() => {
+    splash.remove();
+  }, 600);
 }
 
 const emojiRaining = {

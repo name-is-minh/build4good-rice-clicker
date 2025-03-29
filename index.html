@@ -65,10 +65,26 @@
     }
 
     .animate-spin-slow {
-      animation: spin-slow 3s linear infinite;
+      animation: spin-slow 5s linear infinite;
       transform-origin: center;
       /* Ensure it rotates around center */
       display: block;
+    }
+
+    @keyframes splash {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    .rice-splash {
+      transform-origin: center;
     }
 
     @layer base {
@@ -107,16 +123,17 @@
   </header>
 
   <!-- Clickable Rice Bowl -->
-  <main class="relative flex justify-center items-center group w-[250px] h-[250px] mx-auto mt-10 ">
+  <main class="relative flex justify-center items-center group w-[400px] h-[400px] mx-auto mt-10 select-none"
+    onclick="handleRiceClick(event)">
     <!-- Light ray image -->
-    <img src="img/light-ray-2.png" alt="Light Ray" class="absolute w-[250px] h-[250px]  rounded-full  opacity-0
+    <img src="img/light-ray-2.png" alt="Light Ray" class="absolute w-[400px] h-[400px]  rounded-full  opacity-0
     group-hover:opacity-100 transition-opacity duration-500 pointer-events-none
     animate-spin-slow -left-5 top-4" />
     <!-- Rice bowl image -->
 
     <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl"
-      class="relative z-10 w-40 h-40 cursor-pointer rounded-full hover:scale-[1.05] duration-500 ease-in-out"
-      onclick="handleRiceClick()" onclick>
+      class="relative z-10 w-[300px] h-[300px] cursor-pointer rounded-full hover:scale-[1.05] duration-500 ease-in-out left-4 bottom-4 select-none"
+      draggable="false">
   </main>
 
   <!-- Store Section -->
