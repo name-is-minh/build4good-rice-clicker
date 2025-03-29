@@ -7,8 +7,79 @@ const upgrades = {
   mom: { cost: 50, rate: 5, owned: 0 }
 };
 
+const achievements = [
+  {
+    id: "momMaster",
+    title: "Mama Army",
+    description: "Have 10 moms 👩",
+    condition: () => upgrades.mom.owned >= 10,
+    unlocked: false
+  },
+  {
+    id: "farmForce",
+    title: "Farmer Frenzy",
+    description: "Make 20 farmers work 🧑‍🌾",
+    condition: () => upgrades.farmer.owned >= 20,
+    unlocked: false
+  },
+  {
+    id: "clickKing",
+    title: "Click Commander",
+    description: "Own 30 auto clickers 🖱️",
+    condition: () => upgrades.autoClicker.owned >= 30,
+    unlocked: false
+  },
+  {
+    id: "casualCook",
+    title: "Casual Cooking",
+    description: "Cooked 100 bowls 🍚",
+    condition: () => rice >= 100,
+    unlocked: false
+  },
+  {
+    id: "fertilizerFiesta",
+    title: "Fertilizer Fiesta",
+    description: "Own 15 fertilizers 🌿",
+    condition: () => upgrades.fertilizer.owned >= 15, 
+    unlocked: false
+  }
+];
+
+function checkAchievements() {
+  for (let achievement of achievements) {
+    if (!achievement.unlocked && achievement.condition()) {
+      achievement.unlocked = true;
+      showAchievement(achievement);
+      updateAchievementBoard();
+    }
+  }
+}
+
+function showAchievement(achievement) {
+  console.log(`Achievement unlocked: ${achievement.title}`);
+}
+
+function updateAchievementBoard() {
+  const container = document.getElementById("achievementBoard");
+  container.innerHTML = ""; // Clear before repopulating
+
+  for (let a of achievements) {
+    const div = document.createElement("div");
+    div.className = `border p-2 rounded mb-2 transition-all duration-300 ${
+      a.unlocked ? "bg-green-200 border-green-600" : "bg-gray-200 text-gray-500 border-gray-400"
+    }`;
+    div.innerHTML = `
+      <h4 class="font-bold">${a.title}</h4>
+      <p class="text-sm">${a.description}</p>
+    `;
+    container.appendChild(div);
+  }
+}
+
 function updateUI() {
+  // Update the rice count in the UI
   document.getElementById("riceCount").innerText = rice;
+
   // Loop through each upgrade and toggle the button
   for (let key in upgrades) {
     const upgrade = upgrades[key];
@@ -21,9 +92,17 @@ function updateUI() {
       } else {
         div.classList.add("opacity-50", "cursor-not-allowed");
         div.classList.remove("cursor-pointer");
-        div.onclick = null;}
+        div.onclick = null;
+      }
+    }
+
+    // Update upgrade count display
+    const countSpan = document.getElementById(`count${capitalizeFirstLetter(key)}`);
+    if (countSpan) {
+      countSpan.innerText = `x${upgrade.owned}`;
     }
   }
+  checkAchievements();
 }
 
 // Helper to capitalize first letter
@@ -110,6 +189,8 @@ const emojiRaining = {
     }
   }  
 
+updateAchievementBoard();  // Initial display
+
 // Passive income from all upgrades
 setInterval(() => {
   for (let key in upgrades) {
@@ -117,3 +198,63 @@ setInterval(() => {
   }
   updateUI();
 }, 1000);
+
+async function saveUsername() {
+  const username = document.getElementById("usernameInput").value;
+
+  if (!username) {
+    alert("Please enter a username.");
+    return;
+  }
+
+  const currentRice = rice;
+  const farmerLvl = upgrades.farmer.owned;
+  const fertilizerLvl = upgrades.fertilizer.owned;
+  const momLvl = upgrades.mom.owned;
+  const autoClickerLvl = upgrades.autoClicker.owned;
+
+  const response = await fetch("http://localhost:3000/save-username", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username,
+      currentRice,
+      farmerLvl,
+      fertilizerLvl,
+      momLvl,
+      autoClickerLvl,
+    }),
+  });
+
+  const result = await response.json();
+  alert(result.message);
+}
+
+async function loadUsername() {
+    const username = document.getElementById("loadUsernameInput").value;
+    
+    if (!username) {
+      alert("Please enter a username.");
+      return;
+    }
+  
+    const response = await fetch("http://localhost:3000/load-username", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username }),
+    });
+  
+    const result = await response.json();
+  
+    if (response.ok) {
+      rice = parseInt(result.currentRice);
+      upgrades.autoClicker.owned = parseInt(result.autoClickerLvl);
+      upgrades.farmer.owned = parseInt(result.farmerLvl);
+      upgrades.fertilizer.owned = parseInt(result.fertilizerLvl);
+      upgrades.mom.owned = parseInt(result.momLvl);
+  
+      updateUI();
+    } else {
+      alert(result.message);
+    }
+  }

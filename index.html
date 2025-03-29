@@ -121,6 +121,12 @@
     <div class="mt-4 text-xl bg-white rounded-full px-6 py-2 inline-block font-semibold">
       Bowls: <span id="riceCount">0</span>
     </div>
+    <div class="fixed top-5 right-4 w-64 bg-white border border-gray-300 rounded-lg p-4 shadow-lg">
+      <h3 class="text-lg font-bold text-gray-800 mb-2">🏆 Achievements</h3>
+      <div id="achievementBoard" class="text-left space-y-2">
+        <!-- Achievements will appear here -->
+      </div>
+    </div>
   </header>
 
   <!-- Clickable Rice Bowl -->
@@ -138,18 +144,35 @@
       draggable="false">
   </main>
 
+  <div class="mt-4">
+    <!-- Save Username Section -->
+    <div class="mb-2"> <!-- Adding bottom margin to separate Save and Load buttons -->
+      <input type="text" id="usernameInput" placeholder="Enter your username"
+        class="px-4 py-2 border border-gray-400 rounded-lg">
+      <button onclick="saveUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
+    </div>
+  
+    <!-- Load Username Section -->
+    <div>
+      <input type="text" id="loadUsernameInput" placeholder="Enter username to load" 
+        class="px-4 py-2 border border-gray-400 rounded-lg">
+      <button onclick="loadUsername()" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Load Username</button>
+    </div>
+  </div>  
+  
   <!-- Store Section -->
   <section class="mt-16 bg-[#A96036] text-white p-8">
     <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
       🏪 Stores
     </h2>
-
+  
     <!-- Store Items -->
     <div class="space-y-4">
       <div id="buyAutoClicker" onclick="buyUpgrade('autoClicker')" class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full 
       transition-all duration-500 ease-in-out cursor-pointer 
         hover:shadow-lg hover:bg-[#a8d28a] ">
         <span>Auto Clicker</span>
+        <span class="ml-2 text-sm text-white/70" id="countAutoClicker">x0</span>
         <span class="bg-white text-black px-4 py-1 rounded-full text-sm">
           20 bowls
         </span>
@@ -164,6 +187,7 @@
       transition-all duration-500 ease-in-out cursor-pointer 
       hover:shadow-lg hover:bg-[#a8d28a]" onclick="buyUpgrade('farmer')">
         <span>Farmer</span>
+        <span class="ml-2 text-sm text-white/70" id="countFarmer">x0</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           30 bowls
         </button>
@@ -176,6 +200,7 @@
       <div id="buyFertilizer" onclick="buyUpgrade('fertilizer')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
         transition-all duration-500 ease-in-out cursor-pointer ">
         <span>Fertilizer</span>
+        <span class="ml-2 text-sm text-white/70" id="countFertilizer">x0</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           40 bowls
         </button>
@@ -188,6 +213,7 @@
       <div id="buyMom" onclick="buyUpgrade('mom')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
         transition-all duration-500 ease-in-out cursor-pointer ">
         <span>Mom</span>
+        <span class="ml-2 text-sm text-white/70" id="countMom">x0</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           50 bowls
         </button>
@@ -199,7 +225,7 @@
       </div>
     </div>
   </section>
-
+  
   <script src="game.js"></script>
 </body>
 
