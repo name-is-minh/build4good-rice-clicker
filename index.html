@@ -53,6 +53,20 @@
       animation: fall 3s linear forwards;
     }
 
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .animate-spin-slow {
+      animation: spin-slow 3s linear infinite;
+    }
+
     @layer base {
       body {
         font-family: "Winky Sans", sans-serif;
@@ -89,9 +103,16 @@
   </header>
 
   <!-- Clickable Rice Bowl -->
-  <main class="flex justify-center mt-10">
-    <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl" class="w-40 h-40 cursor-pointer" onclick="handleRiceClick()"
-      onclick>
+  <main class="relative flex justify-center items-center group w-[300px] h-[30px] mx-auto mt-10 ">
+    <!-- Light ray image -->
+    <img src="img/light-ray.png" alt="Light Ray" class="absolute w-[250px] h-[250px]  opacity-0
+      group-hover:opacity-100  transition-opacity duration-500 pointer-events-none
+      -translate-x-4 translate-y-2" style="animation-duration: 3s;" />
+    <!-- Rice bowl image -->
+
+    <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl"
+      class="relative z-10 w-40 h-40 cursor-pointer rounded-full hover:scale-[1.05] duration-500 ease-in-out"
+      onclick="handleRiceClick()" onclick>
   </main>
 
   <!-- Store Section -->
