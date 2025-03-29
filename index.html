@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rice Clicker</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rice Clicker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <h1 class="text-3xl font-bold mb-4">🍚 Rice Clicker</h1>
+<body class="bg-[#d2b48c] text-center min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="mt-10">
+    <h1 class="text-5xl font-bold text-red-600 flex justify-center items-center gap-3">
+      🍚 Rice Clicker
+    </h1>
+    <div class="mt-4 text-xl bg-white rounded-full px-6 py-2 inline-block font-semibold">
+      Bowls: <span id="riceCount">0</span>
+    </div>
+  </header>
+
+  <!-- Clickable Rice Bowl -->
+  <main class="flex justify-center mt-10">
     <img id="riceBowl" src="img/bowl.png" alt="Rice Bowl" class="w-40 h-40 cursor-pointer" onclick="increaseRice()">
-    <p id="riceCount" class="text-xl mt-2">Rice: 0</p>
+  </main>
+
+  <!-- Store Section -->
+  <section class="mt-16 bg-[#804000] text-white p-8">
+    <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+      🏪 Stores
+    </h2>
     
-    <!-- Footer with upgrades -->
-    <footer class="fixed bottom-0 w-full p-4 bg-white shadow-md flex justify-center">
-        <div class="p-4 flex items-center gap-4">
-            <button id="buyAutoClicker" class="px-4 py-2 bg-blue-500 text-white rounded disabled:opacity-50" onclick="buyAutoClicker()" disabled>
-                🛒 Buy Auto Clicker (10 Rice)
-            </button>
-            <span id="autoClickers">Auto Clickers: 0</span>
-        </div>
-    </footer>
-    
-    <script src="game.js"></script>
+    <!-- Store Items -->
+    <div class="space-y-4">
+      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+        <span>Auto Clicker</span>
+        <button onclick="buyUpgrade('autoClicker')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
+          20 bowls
+        </button>
+      </div>
+      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+        <span>Farmer</span>
+        <button onclick="buyUpgrade('farmer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
+          30 bowls
+        </button>
+      </div>
+      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+        <span>Fertilizer</span>
+        <button onclick="buyUpgrade('fertilizer')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
+          40 bowls
+        </button>
+      </div>
+      <div class="flex justify-between items-center bg-[#6b8e23] px-6 py-3 rounded-full">
+        <span>Mom</span>
+        <button onclick="buyUpgrade('mom')" class="bg-white text-black px-4 py-1 rounded-full text-sm">
+          50 bowls
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script src="game.js"></script>
 </body>
 </html>
