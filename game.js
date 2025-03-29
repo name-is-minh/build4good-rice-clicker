@@ -265,9 +265,17 @@ async function loadUsername() {
     upgrades.mom.owned = parseInt(result.momLvl);
 
     updateUI();
+    restoreEmojiRain();
   } else {
     alert(result.message);
   }
+}
+
+function restoreEmojiRain() {
+  if (upgrades.autoClicker.owned > 0) startEmojiRain("autoClicker", "🖱️");
+  if (upgrades.farmer.owned > 0) startEmojiRain("farmer", "🧑‍🌾");
+  if (upgrades.fertilizer.owned > 0) startEmojiRain("fertilizer", "🌱");
+  if (upgrades.mom.owned > 0) startEmojiRain("mom", "👩");
 }
 
 const riceNews = [
