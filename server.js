@@ -4,6 +4,13 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { Client } = require('@notionhq/client');
 
+const corsOptions = {
+  origin: 'https://name-is-minh.github.io',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type'],
+};
+app.use(cors(corsOptions));
+
 const app = express();
 
 const notion = new Client({
@@ -11,7 +18,7 @@ const notion = new Client({
 });
 
 const databaseId = process.env.NOTION_DATABASE_ID;
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 
 // Save user data based on username
