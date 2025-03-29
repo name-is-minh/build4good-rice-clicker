@@ -24,14 +24,48 @@ function handleRiceClick(){
   bowl.classList.add("animate-tilt");
 }
 
-function buyUpgrade(name) {
-  const upgrade = upgrades[name];
-  if (rice >= upgrade.cost) {
-    rice -= upgrade.cost;
-    upgrade.owned++;
-    updateUI();
+const emojiRaining = {
+    farmer: false,
+    fertilizer: false,
+    mom: false
+  };
+  
+  function createEmojiRain(emoji) {
+    const emojiElem = document.createElement("div");
+    emojiElem.innerText = emoji;
+    emojiElem.className = "emoji absolute text-2xl pointer-events-none animate-fall";
+    emojiElem.style.left = Math.random() * 95 + "vw";
+    emojiElem.style.top = "-2rem";
+    document.body.appendChild(emojiElem);
+  
+    // Remove after it falls
+    setTimeout(() => {
+      emojiElem.remove();
+    }, 3000);
   }
-}
+  
+  function startEmojiRain(upgradeName, emoji) {
+    if (emojiRaining[upgradeName]) return;
+    emojiRaining[upgradeName] = true;
+  
+    setInterval(() => {
+      createEmojiRain(emoji);
+    }, 500); // drops every 500ms
+  }
+  
+  function buyUpgrade(name) {
+    const upgrade = upgrades[name];
+    if (rice >= upgrade.cost) {
+        rice -= upgrade.cost;
+        upgrade.owned++;
+        updateUI();
+        
+        if (name == "autoClicker") startEmojiRain("autoClicker", "🖱️");
+        if (name === "farmer") startEmojiRain("farmer", "🧑‍🌾");
+        if (name === "fertilizer") startEmojiRain("fertilizer", "🌱");
+        if (name === "mom") startEmojiRain("mom", "👩");
+    }
+  }  
 
 // Passive income from all upgrades
 setInterval(() => {

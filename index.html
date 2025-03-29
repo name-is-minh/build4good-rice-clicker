@@ -8,35 +8,30 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes tilt {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      25% {
-        transform: rotate(10deg);
-      }
-
-      50% {
-        transform: rotate(-10deg);
-      }
-
-      75% {
-        transform: rotate(10deg);
-      }
-
-      100% {
-        transform: rotate(0deg);
-      }
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(10deg); }
+        50% { transform: rotate(-10deg); }
+        75% { transform: rotate(10deg); }
+        100% { transform: rotate(0deg); }
     }
 
     .animate-tilt {
-      animation: tilt 0.3s ease;
+        animation: tilt 0.3s ease;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .animate-fall {
+        animation: fall 3s linear forwards;
     }
   </style>
 
 </head>
 
-<body class="bg-[#d2b48c] text-center min-h-screen flex flex-col justify-between">
+<body class="relative bg-[#d2b48c] text-center min-h-screen flex flex-col justify-between overflow-x-hidden">
   <!-- Header -->
   <header class="mt-10">
     <h1 class="text-5xl font-bold text-red-600 flex justify-center items-center gap-3">
