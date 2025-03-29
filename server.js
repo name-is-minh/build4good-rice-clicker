@@ -6,13 +6,14 @@ const { Client } = require('@notionhq/client');
 
 const app = express();
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
+const corsOptions = {
+  origin: 'https://name-is-minh.github.io',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
 app.use(cors(corsOptions));
-// /app.options('*', cors(corsOptions));
 
 const notion = new Client({
     auth: process.env.NOTION_API_KEY,
