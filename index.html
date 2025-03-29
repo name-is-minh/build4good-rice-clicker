@@ -102,35 +102,56 @@
 
     <!-- Store Items -->
     <div class="space-y-4">
-      <div id="buyAutoClicker" onclick="buyUpgrade('autoClicker')" class="flex justify-between items-center section-background px-6 py-3 rounded-full 
+      <div id="buyAutoClicker" onclick="buyUpgrade('autoClicker')" class="relative group flex justify-between items-center section-background px-6 py-3 rounded-full 
       transition-all duration-500 ease-in-out cursor-pointer 
         hover:shadow-lg hover:bg-[#a8d28a] ">
         <span>Auto Clicker</span>
-        <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
+        <span class="bg-white text-black px-4 py-1 rounded-full text-sm">
           20 bowls
-        </button>
+        </span>
+        <!-- Tooltip -->
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+          +1 rice per second<br />
+          Grows faster rice with automated care.
+        </div>
       </div>
-      <div id="buyFarmer" class="flex justify-between items-center  section-background px-6 py-3 rounded-full
+      <div id="buyFarmer" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full
       transition-all duration-500 ease-in-out cursor-pointer 
       hover:shadow-lg hover:bg-[#a8d28a]" onclick="buyUpgrade('farmer')">
         <span>Farmer</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           30 bowls
         </button>
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+          +2 rice per second<br />
+          A skilled farmer who helps grow more rice steadily.
+        </div>
       </div>
-      <div id="buyFertilizer" onclick="buyUpgrade('fertilizer')" class="flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
+      <div id="buyFertilizer" onclick="buyUpgrade('fertilizer')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
         transition-all duration-500 ease-in-out cursor-pointer ">
         <span>Fertilizer</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           40 bowls
         </button>
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+          +3 rice per second<br />
+          Boosts rice yield by enriching the soil.
+        </div>
       </div>
-      <div id="buyMom" onclick="buyUpgrade('mom')" class="flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
+      <div id="buyMom" onclick="buyUpgrade('mom')" class="relative group flex justify-between items-center  section-background px-6 py-3 rounded-full hover:shadow-lg hover:bg-[#a8d28a]
         transition-all duration-500 ease-in-out cursor-pointer ">
         <span>Mom</span>
         <button class="bg-white text-black px-4 py-1 rounded-full text-sm">
           50 bowls
         </button>
+        <div
+          class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max px-3 py-2 bg-black text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
+          +5 rice per second<br />
+          Mom’s love and care supercharge your rice gains!
+        </div>
       </div>
     </div>
   </section>
