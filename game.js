@@ -80,12 +80,6 @@ function updateUI() {
   // Update the rice count in the UI
   document.getElementById("riceCount").innerText = rice;
 
-  // Update the level of upgrades in the UI
-  document.getElementById("autoClickerLvl").innerText = upgrades.autoClicker.owned;
-  document.getElementById("farmerLvl").innerText = upgrades.farmer.owned;
-  document.getElementById("fertilizerLvl").innerText = upgrades.fertilizer.owned;
-  document.getElementById("momLvl").innerText = upgrades.mom.owned;
-
   // Loop through each upgrade and toggle the button
   for (let key in upgrades) {
     const upgrade = upgrades[key];
