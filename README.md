@@ -25,3 +25,30 @@
 ---
 
 ## 🚀 Getting Started
+### 1. Clone the Repository
+### 2. Install Server Dependencies
+```bash
+npm install
+```
+
+### 3. Set Up .env for Notion API
+Create a **.env** file in the root of your server directory:
+```bash
+NOTION_API_KEY=your_notion_secret_key
+NOTION_DATABASE_ID=your_database_id
+```
+
+### 4. Run the Server
+```bash
+node server.js
+```
+
+### 5. Open the Game
+Open index.html in your browser (you can use Live Server or a local static server).
+
+## Screenshots
+
+![Main Layout](screenshots/Rice_Clicker_Achievement.png)
+![Load Layout](screenshots/Load_Profile.png)
+![Database](screenshots/Notion_Database.png)
+

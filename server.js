@@ -6,12 +6,21 @@ const { Client } = require('@notionhq/client');
 
 const app = express();
 
+const corsOptions = {
+  origin: ['https://name-is-minh.github.io', 'http://localhost:10000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
 const notion = new Client({
     auth: process.env.NOTION_API_KEY,
 });
 
 const databaseId = process.env.NOTION_DATABASE_ID;
-app.use(cors());
+// app.use(cors());
 app.use(bodyParser.json());
 
 // Save user data based on username
@@ -94,6 +103,8 @@ app.post('/load-username', async (req, res) => {
   });
   
 // Start the server
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

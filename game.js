@@ -224,7 +224,7 @@ async function saveUsername() {
   const momLvl = upgrades.mom.owned;
   const autoClickerLvl = upgrades.autoClicker.owned;
 
-  const response = await fetch("http://localhost:3000/save-username", {
+  const response = await fetch("https://rice-clicker-backend.onrender.com/save-username", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -249,7 +249,7 @@ async function loadUsername() {
     return;
   }
 
-  const response = await fetch("http://localhost:3000/load-username", {
+  const response = await fetch("https://rice-clicker-backend.onrender.com/load-username", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username }),
@@ -265,9 +265,17 @@ async function loadUsername() {
     upgrades.mom.owned = parseInt(result.momLvl);
 
     updateUI();
+    restoreEmojiRain();
   } else {
     alert(result.message);
   }
+}
+
+function restoreEmojiRain() {
+  if (upgrades.autoClicker.owned > 0) startEmojiRain("autoClicker", "🖱️");
+  if (upgrades.farmer.owned > 0) startEmojiRain("farmer", "🧑‍🌾");
+  if (upgrades.fertilizer.owned > 0) startEmojiRain("fertilizer", "🌱");
+  if (upgrades.mom.owned > 0) startEmojiRain("mom", "👩");
 }
 
 const riceNews = [
